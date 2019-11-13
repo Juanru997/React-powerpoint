@@ -1,25 +1,75 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react';
+import styled from 'styled-components';
+import { tsModuleDeclaration } from '@babel/types';
+
+
+const AppWrapper = styled.div`
+  display: flex;
+  // flex-direction: column;
+  background: tomato;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+ `;
+
+ const PresentationWrapper = styled.div`
+  display:flex;
+  flex-direction: row;
+  background-color: black;
+  flex:1;
+  justify-content:center;
+
+
+
+ `;
+const Presentation = styled.div`
+  display:flex;
+  flex-direction: row;
+  background-color: yellow;
+  color:black;
+  height: 40vh;
+  width: 80vh;
+  min-height: 100px;
+  justify-content: center;
+  align-items: center;
+
+`;
+
+const DirectionButton = styled.button`
+  color: teal;
+
+`;
+
+
+let slides = [
+  "1","2","3","4","5"
+];
+
+
+
 
 function App() {
+  const [currentSlides,SetcurrentSlides] = useState(0);
+  function nextSlide(){
+    SetcurrentSlides((currentSlides +1) %slides.length);
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper>
+      <PresentationWrapper>
+        <DirectionButton>
+          Previous
+        </DirectionButton>
+      <Presentation>
+       {slides[currentSlides]}
+      </Presentation>
+      <DirectionButton onClick={nextSlide}>
+          Next
+        </DirectionButton>
+      </PresentationWrapper>
+    </AppWrapper>
   );
 }
 
